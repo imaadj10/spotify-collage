@@ -25,3 +25,8 @@ def get_top_tracks(artist_id):
 
 if __name__ == "__main__":
     search_artist()
+
+
+
+
+    # lz_uri = 'spotify:artist:757aE44tKEUQEqRuT6GnEB'    roddy ricch
