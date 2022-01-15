@@ -12,7 +12,7 @@ def get_artist_id(artist_name):
 def get_top_tracks(artist_id):
     results = sp.artist_top_tracks(artist_id)
 
-    for item in results['tracks']:
-        print('track    : ' + item['name'])
-        print('cover art: ' + item['album']['images'][0]['url'])
+    for track in results['tracks']:
+        print('track    : ' + track['name'])
+        print('cover art: ' + track['album']['images'][0]['url'])
         print()
