@@ -1,6 +1,7 @@
 from spotify_collage.search_artist import search_artist
 from spotify_collage.trending import trending
 from spotify_collage.search_genre import search_genre
+from test import search_saved_songs
 
 def choose_function(user_choice):
     if user_choice == 1:
@@ -9,6 +10,8 @@ def choose_function(user_choice):
         trending()
     elif user_choice == 3:
         search_genre()
+    elif user_choice == 4:
+        search_saved_songs()
 
 if __name__ == "__main__":
     user_choice = int(input("Chose a function: "))
