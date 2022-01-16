@@ -5,9 +5,10 @@
     <h1 style="text-transform: uppercase">{{ name }}</h1>
     
     {% for track, artist in top_tracks|zip(top_artists) %}
-        <ul>
-            <li>{{track}} - {{artist}}</li>
-        </ul>
+        
+            <td>{{loop.index}}. {{track}} - {{artist}}</td>
+</br>
+        
     {% endfor %}
 
    

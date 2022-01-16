@@ -40,7 +40,7 @@ def index():
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         # Step 2. Display sign in link when no token
         auth_url = auth_manager.get_authorize_url()
-        return f'<h2><a href="{auth_url}">Sign in</a></h2>'
+        return f'<div style="box-sizing: border-box; width:100vw ; height:100vh"><h2 style="color:#1DB954"><a href="{auth_url}">Sign in</a></h2></div>'
 
     # Step 4. Signed in, display data
     spotify = spotipy.Spotify(auth_manager=auth_manager)
@@ -160,10 +160,10 @@ def genre_rec():
             print()
         print(tracklist)
         print(imagesGenre)
-        return render_template('genre_rec.html', tracklist=tracklist, images=imagesGenre)
+        return render_template('genre_rec.html', name=genre_name, tracklist=tracklist, images=imagesGenre)
 
     else:
-        return render_template('genre.html', tracklist = tracklist)
+        return render_template('genre.html', name="", tracklist = tracklist)
 
 
 

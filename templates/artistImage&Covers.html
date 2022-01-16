@@ -2,12 +2,11 @@
 
 {% block main %}
 <div class="text-white">
-    <h1 style="text-transform: uppercase">{{ name }}</h1>
+    <h1 style="text-transform: uppercase; color: #1DB954">{{ name }}</h1>
     
     {% for track in top_tracks %}
-        <ul>
-            <li>{{track}}</li>
-        </ul>
+        {{track}}
+</br></br>
     {% endfor %}
 
 

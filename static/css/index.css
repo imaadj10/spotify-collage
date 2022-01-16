@@ -1,9 +1,12 @@
-/* @font-face {
-    font-family: f;
-    src: url();
-} {
-    font-family: ;
-} */
+@font-face {
+    font-family: 'Gotham Medium';
+    src: url(GothamMedium.ttf);
+}
+
+* {
+    font-family: 'Gotham Medium';
+}
+
 
 nav .navbar-brand
 {
@@ -23,9 +26,6 @@ main .form-control
     /* center form controls */
     display: inline-block;
 
-    /* override Bootstrap's 100% width for form controls */
-    width: auto;
-
     color: white;
 }
 
@@ -44,4 +44,9 @@ main img
 {
     /* constrain images on small screens */
     max-width: 100%;
+}
+
+
+.redCollage {
+    /* border: red solid; */
 }
