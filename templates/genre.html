@@ -1,0 +1,13 @@
+{% block title %}
+    Genre Recommendations
+{% endblock %}
+
+{% block main %}
+
+    <ul>
+        {% for song in songs %} 
+        {% song %} 
+        {% endfor %}
+    </ul>
+
+{% endblock %}
