@@ -12,6 +12,7 @@ app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 Session(app)
+app.jinja_env.filters['zip'] = zip
 
 caches_folder = './.spotify_caches/'
 if not os.path.exists(caches_folder):
@@ -125,6 +126,7 @@ def top_artist_tracks():
                 # print('cover art: ' + item['album']['images'][0]['url']+'\n')
                 top_tracks.append(item['name'])
                 images.append(item['album']['images'][0]['url'])
+                link = 1
         
         get_artist_id(artist_name)
         # return render_template('artistImage&Covers.html', top_tracks=top_tracks , images=images)
@@ -167,13 +169,23 @@ def genre_rec():
 
 @app.route('/trending')
 def trending_tracks():
+    trending_tracks = []
+    trending_artists = []
+    trending_images = []
+    
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    top_tracks = trending(spotify)
-    return render_template('trending.html', top_tracks=top_tracks)
+    top_trending_tracks = trending(spotify)
+    trending_id = "37i9dQZEVXbMDoHDwVN2tF"
+    results = spotify.playlist_items(trending_id)
+    for track in results['items'][0:]:
+        trending_tracks.append(track['track']['name'])
+        trending_artists.append(track['track']['album']['artists'][0]['name'])
+        trending_images.append(track['track']['album']['images'][0]['url'])
+    return render_template('trending.html', top_tracks=trending_tracks, top_artists=trending_artists, images=trending_images)
 
 @app.route('/about')
 def about():
