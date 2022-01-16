@@ -40,18 +40,12 @@ def index():
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         # Step 2. Display sign in link when no token
         auth_url = auth_manager.get_authorize_url()
-        return f'<div style="box-sizing: border-box; width:100vw ; height:100vh"><h2 style="color:#1DB954"><a href="{auth_url}">Sign in</a></h2></div>'
-
+        return render_template('sign_in.html', auth_url=auth_url)
+        
     # Step 4. Signed in, display data
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     return render_template("index.html")
-    # return f'<h2>Hi {spotify.me()["display_name"]}, ' \
-    #        f'<small><a href="/sign_out">[sign out]<a/></small></h2>' \
-    #        f'<a href="/playlists">my playlists</a> | ' \
-    #        f'<a href="/currently_playing">currently playing</a> | ' \
-	# 	   f'<a href="/current_user">me</a> | ' \
-    #        f'<a href = "/artist_top_tracks"> artist_top_tracks</a> | ' \
-    #        f'<a href = "/genre_rec"> genre_recommendations</a>' 
+    
 
 
 @app.route('/sign_out')
@@ -85,13 +79,14 @@ def currently_playing():
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     track = spotify.current_user_playing_track()
     if track:
+        track_link = track['item']['external_urls']['spotify']
         track_artist = spotify.artist(track['item']['artists'][0]['id'])['name']
         track_image = track['item']['album']['images'][0]['url']
         track_album = track['item']['album']['name'] 
         track_name = track['item']['name']
     else:
-        return render_template('currently_play.html')
-    return render_template('currently_play.html', title=track_name, artist=track_artist, album=track_album, image=track_image)
+        return render_template('currently_play.html', show_button=False)
+    return render_template('currently_play.html', title=track_name, artist=track_artist, album=track_album, image=track_image, link=track_link, show_button=True)
     
 
 @app.route('/current_user')
@@ -204,8 +199,10 @@ def view_saved():
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    saved_tracks = saved_songs(spotify)
-    return render_template('liked_songs.html', saved_tracks=saved_tracks)
+    saved_tracks = saved_songs(spotify)['songsNartists']
+    saved_pics = saved_songs(spotify)['savedPictures']
+    saved_links = saved_songs(spotify)['savedLinks']
+    return render_template('liked_songs.html', saved_tracks=saved_tracks, saved_pics=saved_pics , saved_links=saved_links )
 
 
 if __name__ == '__main__':

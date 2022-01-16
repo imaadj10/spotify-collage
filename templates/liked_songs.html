@@ -3,23 +3,17 @@
 {% block main %}
 <div class="text-white">
 
-
-
-
-
-    <!-- <h1 style="text-transform: uppercase; color: #1DB954">{{ name }}</h1> -->
+    <h1 style="text-transform: uppercase; color: #1DB954">Your Liked Songs</h1>
     
     {% for track in saved_tracks %}
         <h6>{{track}}</h6>        
     {% endfor %}
 
-
-    <!-- {% for image in images %}
-        <img src={{ image }} width="100" height="100">
-    {% endfor %} -->
-
-
-    <!-- <a href="about">Go to About</a> -->
+    {% for pics,links in saved_pics|zip(saved_links) %}
+    <a href="{{links}}" target="_blank">
+        <img style="padding: 2px;" src={{pics}} width="100" height="100">
+    </a>
+    {% endfor %}
 
     </div>
 {% endblock %}

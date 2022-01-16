@@ -3,16 +3,22 @@
 {% block main %}
 
 <div class="content-section">
+    <h1 style="text-transform: uppercase; color: #1DB954">Currently Playing</h1>
     <div class="media">
-        <img style="max-width: 50%" class="mx-auto" src="{{ image }}"/>
+        <img style="max-width: 30%" class="mx-auto" src="{{ image }}"/>
     </div>
     <div class="media-body text-white">
         <p>
-        <h2>{{ title }}</h2>
-        <h3>{{ album }}</h3>
-        <h4>{{ artist }}</h4>
+        <h4>{{ title }}</h4>
+        <h5>{{ album }}</h5>
+        <h6>{{ artist }}</h6>
         </p>
     </div>
+    {% if show_button %}
+        <a href="{{ link }}" target="_blank"><button style="background-color: #1DB954; border-radius: 12px" type="button" class="btn btn-lg">Go to Spotify</button></a>
+    {% else %}
+        <h3 class="text-white">No Song Currently Playing</h3>
+    {% endif %}
 </div>
 
 {% endblock %}
