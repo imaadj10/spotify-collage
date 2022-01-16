@@ -3,24 +3,23 @@
 {% block main %}
 
 <div class="form-group">
-    {{ form.artist.label(class="form-control-label") }}
-
     {% if form.artist.errors %}
         {{ form.artist(class="form-control form-control-lg is-invalid") }}
         <div class="invalid-feedback">
-            {% for error in form.email.errors %}
+            {% for error in form.artist.errors %}
                 <span>{{  error }}</span>
             {% endfor %}
         </div>
         {% else %}
-            {{ form.artist(class="form-control form-control-lg") }}
+            {{ form.artist(class="form-control form-control-lg", placeholder="Search your favorite artists") }}
         {% endif %}
-    {{ form.submit(class="btn btn-outline-info") }}
+    </br>
+    {{ form.submit(class="btn btn-success btn-lg btn-block") }}
 </div>
 
-<div class="media-body">
+<div class="media-body text-white">
     {% for track in top_tracks %}
-        {{ track[0] }} {{ track[1] }}
+        <p>track[0] track[1]</p>
     {% endfor %}
 </div>
 

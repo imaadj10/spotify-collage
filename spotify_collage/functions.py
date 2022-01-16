@@ -1,9 +1,6 @@
 def search_artist(sp, artist_name):
     url_string = sp.search(q=artist_name, limit=1, offset=0, type='artist', market=None).get('artists').get('items')[0].get('external_urls').get('spotify')
     artist_id = url_string[32:]
-    get_top_tracks(artist_id)
-
-def get_top_tracks(artist_id, sp):
     results = sp.artist_top_tracks(artist_id)
 
     for track in results['tracks']:

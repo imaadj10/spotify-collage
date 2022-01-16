@@ -92,23 +92,23 @@ def current_user():
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return spotify.current_user()
+    spotify = spotipy.Spotify(auth_manager=auth_manager) #return spotify.current_user()
+    return render_template('current_user.html')
 
 @app.route('/artist_top_tracks', methods=["GET", "POST"])
 def top_artist_tracks():
     form = ArtistForm()
+    top_tracks = []
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    if form.validate_on_submit():
+    if request.method == "POST":
         artist = form.artist.data
         top_tracks = search_artist(spotify, artist)
-        return render_template('artist.html', top_tracks=top_tracks, form=form)
-    return render_template('artist.html', top_tracks = [], form=form)
-
+        return render_template('artist.html', top_tracks = top_tracks, form=form)
+    return render_template('artist.html', form=form)
     
 @app.route('/genre_rec', methods=["GET", "POST"])
 def genre_rec():
