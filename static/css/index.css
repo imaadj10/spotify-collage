@@ -47,6 +47,6 @@ main img
 }
 
 
-.redCollage {
-    /* border: red solid; */
+.btn:hover {
+    color: white
 }

@@ -73,7 +73,7 @@ def playlists():
         return redirect('/')
 
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return render_template('playlist.html')
+    return spotify.current_user_saved_tracks()
 
 
 @app.route('/currently_playing')
@@ -84,11 +84,14 @@ def currently_playing():
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     track = spotify.current_user_playing_track()
-    track_artist = spotify.artist(track['item']['artists'][0]['id'])
-    track_image = track['item']['album']['images'][0]['url']
-    track_album = track['item']['album']['name'] 
-    track_name = track['item']['name']
-    return render_template('current_user.html', title=track_name, artist=track_artist, album=track_album, image=track_image)
+    if track:
+        track_artist = spotify.artist(track['item']['artists'][0]['id'])['name']
+        track_image = track['item']['album']['images'][0]['url']
+        track_album = track['item']['album']['name'] 
+        track_name = track['item']['name']
+    else:
+        return render_template('currently_play.html')
+    return render_template('currently_play.html', title=track_name, artist=track_artist, album=track_album, image=track_image)
     
 
 @app.route('/current_user')
@@ -166,7 +169,6 @@ def genre_rec():
         return render_template('genre.html', name="", tracklist = tracklist)
 
 
-
 @app.route('/trending')
 def trending_tracks():
     trending_tracks = []
@@ -202,8 +204,8 @@ def view_saved():
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    top_tracks = saved_songs(spotify)
-    return render_template('trending.html', top_tracks=top_tracks)
+    saved_tracks = saved_songs(spotify)
+    return render_template('liked_songs.html', saved_tracks=saved_tracks)
 
 
 if __name__ == '__main__':

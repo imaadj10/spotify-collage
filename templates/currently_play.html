@@ -2,4 +2,17 @@
 
 {% block main %}
 
+<div class="content-section">
+    <div class="media">
+        <img style="max-width: 50%" class="mx-auto" src="{{ image }}"/>
+    </div>
+    <div class="media-body text-white">
+        <p>
+        <h2>{{ title }}</h2>
+        <h3>{{ album }}</h3>
+        <h4>{{ artist }}</h4>
+        </p>
+    </div>
+</div>
+
 {% endblock %}

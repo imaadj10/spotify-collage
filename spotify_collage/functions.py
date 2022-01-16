@@ -32,6 +32,12 @@ def search_genre(sp, genre_name):
 
 def saved_songs(sp):
     results = sp.current_user_saved_tracks()
+    saved_artists_and_tracks = []
+
     for idx, item in enumerate(results['items']):
-        track = item['track']
-        print(idx, track['artists'][0]['name'], " – ", track['name'])
+        # track.append(item['track'])
+        saved_artists_and_tracks.append(item['track']['album']['artists'][0]['name'])
+        saved_tracks.append(str(item['track']['name']))
+
+        # print(idx, track['artists'][0]['name'], " – ", track['name'])
+    return saved_artists_and_tracks
