@@ -1,9 +1,8 @@
 import spotipy
-import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="4d206d80d5354c7ca49248eb616d2db9",
-                                               client_secret="29456c8c9b994ccc958a2ac4594857d3",
-                                               redirect_uri="http://localhost:8000",
-                                               scope="user-library-read"))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="ee22179f130b461288adca74bed014c6", 
+                                                client_secret="6f3daaa8bcf8489a90b11db0cef6e00d",
+                                                redirect_uri="http://localhost:8000",
+                                                scope="user-library-read"))
 

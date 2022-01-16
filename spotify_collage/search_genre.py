@@ -9,5 +9,4 @@ def search_genre():
             print('track    : ' + track['name'])
             print('cover art: ' + track['album']['images'][0]['url'])
             print()
-    print(genres)
     
