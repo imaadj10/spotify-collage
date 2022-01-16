@@ -1,4 +1,4 @@
-def search_artist(artist_name, sp):
+def search_artist(sp, artist_name):
     url_string = sp.search(q=artist_name, limit=1, offset=0, type='artist', market=None).get('artists').get('items')[0].get('external_urls').get('spotify')
     artist_id = url_string[32:]
     get_top_tracks(artist_id)
@@ -7,9 +7,9 @@ def get_top_tracks(artist_id, sp):
     results = sp.artist_top_tracks(artist_id)
 
     for track in results['tracks']:
-        print('track    : ' + track['name'])
-        print('cover art: ' + track['album']['images'][0]['url'])
-        print()
+        top_tracks = []
+        top_tracks.append([[track['name']],track['album']['images'][0]['url']])
+        return top_tracks
 
 def trending(sp):
     trending_id = "37i9dQZEVXbMDoHDwVN2tF"

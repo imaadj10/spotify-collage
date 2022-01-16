@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<div class="form-group">
+    {{ form.artist.label(class="form-control-label") }}
+
+    {% if form.artist.errors %}
+        {{ form.artist(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+                <span>{{  error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+            {{ form.artist(class="form-control form-control-lg") }}
+        {% endif %}
+    {{ form.submit(class="btn btn-outline-info") }}
+</div>
+
+<div class="media-body">
+    {% for track in top_tracks %}
+        {{ track[0] }} {{ track[1] }}
+    {% endfor %}
+</div>
+
+{% endblock %}

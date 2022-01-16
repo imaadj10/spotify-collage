@@ -96,19 +96,19 @@ def current_user():
     return spotify.current_user()
 
 @app.route('/artist_top_tracks', methods=["GET", "POST"])
-def top_tracks():
+def top_artist_tracks():
     form = ArtistForm()
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    if form.validate_on_submit:
+    if form.validate_on_submit():
         artist = form.artist.data
-        top_tracks = search_artist(artist, spotify)
-    elif request.method == "GET":
-        return render_template('artist.html')
-    return render_template('artist.html', artist=artist, top_tracks=top_tracks, form=form)
+        top_tracks = search_artist(spotify, artist)
+        return render_template('artist.html', top_tracks=top_tracks, form=form)
+    return render_template('artist.html', top_tracks = [], form=form)
+
     
 @app.route('/genre_rec', methods=["GET", "POST"])
 def genre_rec():
@@ -118,10 +118,17 @@ def genre_rec():
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    if form.validate_on_submit:
-        genre = form.genre.data
+    if request.method == "POST":
         top_tracks = search_genre(spotify)
-    return render_template('genre.html', genre=genre, top_tracks=top_tracks, form=form)
+        print(top_tracks)
+        return render_template('genre.html', genre=genre, top_tracks=top_tracks, form=form)
+
+    else:
+        return render_template('genre.html')
+
+    # if form.validate_on_submit:
+    #     genre = form.genre.data
+    #     top_tracks = search_genre(spotify)
 
 @app.route('/trending')
 def trending_tracks():
@@ -132,6 +139,14 @@ def trending_tracks():
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     top_tracks = trending(spotify)
     return render_template('trending.html', top_tracks=top_tracks)
+
+@app.route('/about')
+def about():
+    cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+    return render_template('about.html')
     
 @app.route('/your_saved_songs')
 def view_saved():
@@ -146,4 +161,4 @@ def view_saved():
 
 if __name__ == '__main__':
     app.run(threaded=True, port=int(os.environ.get("PORT",
-                                                   os.environ.get("http://127.0.0.1", "8080").split(":")[-1])))
+                                                   os.environ.get("http://127.0.0.1", "5000").split(":")[-1])))
