@@ -1,19 +1,17 @@
 {% extends "layout.html" %}
 
-<html>
-
-<head>
-
-</head>
-
 {% block main %}
 
-<body>
-
-    
-
-</body>
-   
-</html>
+<div class="content-section">
+    <div class="media">
+    <img class="rounded-circle account-img mx-auto" src="{{ image_url }}"/>
+    <div class="media-body">
+        <p>
+        <h2 class="account-heading text-white">{{ username }}</h2>
+        <a href="{{ spotify_link }}" target="_blank"><button style="background-color: #1DB954; border-radius: 12px" type="button" class="btn btn-lg">Go to Spotify</button></a>
+        </p>
+    </div>
+    </div>
+</div>
 
 {% endblock %}

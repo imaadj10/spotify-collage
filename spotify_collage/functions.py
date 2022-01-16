@@ -18,9 +18,9 @@ def trending(sp):
         print()
 
 
-def search_genre(sp):
+def search_genre(sp, genre_name):
     genres = sp.recommendation_genre_seeds()['genres']
-    genre_name = input("Search for a genre: ")
+    # genre_name = input("Search for a genre: ")
     if genre_name in genres:
         tracks = sp.recommendations(seed_genres=[genre_name])
         for track in tracks['tracks']:

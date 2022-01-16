@@ -2,25 +2,12 @@
 
 {% block main %}
 
-<div class="form-group">
-    {% if form.artist.errors %}
-        {{ form.artist(class="form-control form-control-lg is-invalid") }}
-        <div class="invalid-feedback">
-            {% for error in form.artist.errors %}
-                <span>{{  error }}</span>
-            {% endfor %}
-        </div>
-        {% else %}
-            {{ form.artist(class="form-control form-control-lg", placeholder="Search your favorite artists") }}
-        {% endif %}
-    </br>
-    {{ form.submit(class="btn btn-success btn-lg btn-block") }}
-</div>
-
-<div class="media-body text-white">
-    {% for track in top_tracks %}
-        <p>track[0] track[1]</p>
-    {% endfor %}
-</div>
+<form action="#" method="post">
+    <div class="form-group">
+        <input autocomplete="off" autofocus class="form-group form-control form-control-lg" name="artist_rec" placeholder="Search your favorite artist" type="text" required>
+        <h1 style="color:white">Testing something here This shit is broken<h1/>
+    </div>
+    <button style="background-color: #1DB954; border-radius: 12px" class="btn btn-lg btn-block" type="submit">Search</button>
+</form>
 
 {% endblock %}

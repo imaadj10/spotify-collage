@@ -1,10 +1,11 @@
 import os
-from flask import Flask, session, request, redirect, render_template
+from flask import Flask, session, request, redirect, render_template, url_for
 from flask_session import Session
 import spotipy
 import uuid
 from spotify_collage.functions import search_artist, search_genre, saved_songs, trending
-from spotify_collage.forms import ArtistForm, GenreForm
+from spotify_collage.user import CurrentUser
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(64)
@@ -71,7 +72,7 @@ def playlists():
         return redirect('/')
 
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return spotify.current_user_playlists()
+    return render_template('playlist.html')
 
 
 @app.route('/currently_playing')
@@ -82,9 +83,12 @@ def currently_playing():
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     track = spotify.current_user_playing_track()
-    if not track is None:
-        return track
-    return "No track currently playing."
+    track_artist = spotify.artist(track['item']['artists'][0]['id'])
+    track_image = track['item']['album']['images'][0]['url']
+    track_album = track['item']['album']['name'] 
+    track_name = track['item']['name']
+    return render_template('current_user.html', title=track_name, artist=track_artist, album=track_album, image=track_image)
+    
 
 @app.route('/current_user')
 def current_user():
@@ -92,43 +96,74 @@ def current_user():
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
-    spotify = spotipy.Spotify(auth_manager=auth_manager) #return spotify.current_user()
-    return render_template('current_user.html')
+    spotify = spotipy.Spotify(auth_manager=auth_manager) #return render_template('current_user.html')
+    results = spotify.current_user()
+    user = CurrentUser(results['display_name'], results['images'][0]['url'], results['external_urls']['spotify'])
+    return render_template('current_user.html', username=user.username, image_url=user.user_image, spotify_link=user.redirect)
+    
 
 @app.route('/artist_top_tracks', methods=["GET", "POST"])
 def top_artist_tracks():
-    form = ArtistForm()
     top_tracks = []
+    images = []
+    links = []
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
+
     if request.method == "POST":
-        artist = form.artist.data
-        top_tracks = search_artist(spotify, artist)
-        return render_template('artist.html', top_tracks = top_tracks, form=form)
-    return render_template('artist.html', form=form)
+        artist_name = request.form["artist_rec"]
+        def get_artist_id(artist_name):
+            artist_id = (spotify.search(q=artist_name, limit=1, offset=0, type='artist', market=None)['artists']['items'][0]['external_urls']['spotify'][-22:])
+            print('\n'+str(artist_name)+"'s artist ID is "+artist_id+'\n')
+            results = spotify.artist_top_tracks(artist_id)
+            
+            for item in results['tracks'][:16]:
+                # print('track    : ' + item['name'])
+                # print('cover art: ' + item['album']['images'][0]['url']+'\n')
+                top_tracks.append(item['name'])
+                images.append(item['album']['images'][0]['url'])
+        
+        get_artist_id(artist_name)
+        # return render_template('artistImage&Covers.html', top_tracks=top_tracks , images=images)
+        return render_template('artistImage&Covers.html' , top_tracks=top_tracks , images=images, name=artist_name)
+        top_tracks = search_artist(spotify)
+        print(top_tracks)
+
+    else: 
+        return render_template('artist.html', top_tracks = top_tracks)
+    #return render_template('artist.html', form=form)
     
+
 @app.route('/genre_rec', methods=["GET", "POST"])
 def genre_rec():
-    form = GenreForm()
+    tracklist = []
+    imagesGenre = []
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
+
     if request.method == "POST":
-        top_tracks = search_genre(spotify)
-        print(top_tracks)
-        return render_template('genre.html', genre=genre, top_tracks=top_tracks, form=form)
+        genre_name = request.form["genre_rec"]
+        resultsGenre = spotify.recommendations(seed_genres=[genre_name])
+        for track in resultsGenre['tracks']:
+            print('track    : ' + track['name'])
+            print('cover art: ' + track['album']['images'][0]['url'])
+            tracklist.append(track['name'])
+            imagesGenre.append(track['album']['images'][0]['url'])
+            print()
+        print(tracklist)
+        print(imagesGenre)
+        return render_template('genre_rec.html', tracklist=tracklist, images=imagesGenre)
 
     else:
-        return render_template('genre.html')
+        return render_template('genre.html', tracklist = tracklist)
 
-    # if form.validate_on_submit:
-    #     genre = form.genre.data
-    #     top_tracks = search_genre(spotify)
+
 
 @app.route('/trending')
 def trending_tracks():
