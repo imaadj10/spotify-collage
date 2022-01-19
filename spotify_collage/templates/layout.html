@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="/static/css/index.css" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+        <title>Spotify Collage</title>
+
+    </head>
+
+    <body style="background-color: #191414">
+
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #191414">
+            <a class="navbar-brand" href="/"><img src="static\images\Spotify_Logo.png" width="200px" height="80px"></a>
+            <div class="collapse navbar-collapse" id="navbar">
+                <a class="btn-link" href="/"><button class="nav-btn">Home</button></a>
+                <a class="btn-link" href="/your_saved_songs"><button class="nav-btn">Liked Songs</button></a>
+                <a class="btn-link" href="/currently_playing"><button class="nav-btn">Currently Playing</button></a>
+                <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist Top Tracks</button></a>
+                <a class="btn-link" href="/genre_rec"><button class="nav-btn">Recommendations</button></a>
+                <a class="btn-link" href="/trending"><button class="nav-btn">Trending</button></a>
+                <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
+            </div>
+                <a class="btn-link" href="/current_user"><button style="float: inline-end;" class="nav-btn">My Profile</button></a>
+                <a class="btn-link" href="/sign_out"><button style="float: right" class="nav-btn">Sign Out</button></a>
+        </nav>
+
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary border text-center" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+
+        <main class="container p-5">
+            <p style="color:white"></p>
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer class="small text-center text-muted">
+            Data provided for free by Spotify.
+            <br>
+            Created for nwHacks 2022. 
+        </footer>
+
+    </body>
+
+</html>

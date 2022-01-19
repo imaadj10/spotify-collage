@@ -1,0 +1,119 @@
+@font-face {
+    font-family: 'Gotham Medium';
+    src: url(GothamMedium.ttf);
+}
+
+* {
+    font-family: 'Gotham Medium';
+}
+
+
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+    color: white;
+}
+
+nav .navbar-custom
+{
+    color: white;
+    background-color: #272727;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    color: white;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+
+    color: white;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+.nav-btn {
+    color: gray;
+    padding: 9px 7px 9px 7px;
+    background-color: transparent;
+    background-image: radial-gradient(circle at center, #1DB954, #1DB954);
+    background-repeat: no-repeat;
+    transition: background-size .5s, color .5s;
+    background-position: 50% 50%;
+    background-size: 0% 0%;
+    border-radius: 20px;
+    border: none;
+    margin: 5px;
+    outline: none;
+}
+
+.nav-btn:hover {
+    background-size: 200% 200%;
+    color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-link {
+    color: gray;
+}
+
+.btn-link:hover {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn {
+    color: white;
+    background-color: #1DB954; 
+    border-radius: 25px;
+    outline: none;
+}
+
+.btn:hover {
+    background-color: hsl(141, 73%, 49%);
+    outline: none;
+}
+
+.sign-in {
+    text-align: center;
+    font-size: 50px;
+    vertical-align: middle;
+    animation: fadeInAnimation ease 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+.sign-in-link {
+    font-size: 10px;
+}
