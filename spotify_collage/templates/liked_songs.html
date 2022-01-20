@@ -1,19 +1,44 @@
 {% extends "layout.html" %}
 
-{% block main %}
-<div class="text-white">
-
-    <h1 style="text-transform: uppercase; color: #1DB954">Your Liked Songs</h1>
-    
-    {% for track in saved_tracks %}
-        <h6>{{track}}</h6>        
-    {% endfor %}
-
-    {% for pics,links in saved_pics|zip(saved_links) %}
-    <a href="{{links}}" target="_blank">
-        <img style="padding: 2px;" src={{pics}} width="100" height="100">
-    </a>
-    {% endfor %}
-
+{% block toolbar %}
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #191414">
+    <a class="navbar-brand" href="/"><img src="static\images\Spotify_Logo.png" width="200px" height="80px"></a>
+    <div class="collapse navbar-collapse" id="navbar">
+        <a class="btn-link" href="/"><button class="nav-btn">Home</button></a>
+        <a class="btn-link" href="/your_saved_songs"><button class="active-btn">Liked Songs</button></a>
+        <a class="btn-link" href="/currently_playing"><button class="nav-btn">Currently Playing</button></a>
+        <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist Top Tracks</button></a>
+        <a class="btn-link" href="/genre_rec"><button class="nav-btn">Recommendations</button></a>
+        <a class="btn-link" href="/trending"><button class="nav-btn">Trending</button></a>
+        <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
     </div>
+        <a class="btn-link" href="/current_user"><button style="float: inline-end;" class="nav-btn">My Profile</button></a>
+        <a class="btn-link" href="/sign_out"><button style="float: right" class="nav-btn">Sign Out</button></a>
+</nav>
+{% endblock %}
+
+{% block main %}
+
+    <h1 style="text-transform: uppercase; color: #1DB954; font-family: 'Gotham Bold';">Your Liked Songs</h1>
+    
+    {% for pics,title in saved_pics|zip(saved_tracks) %}
+        <img class="album-cover md-trigger" data-modal="modal-{{loop.index}}" src="{{pics}}" width="100" height="100">
+        <div class="md-modal md-effect-8" id="modal-{{loop.index}}">
+            <div class="md-content">
+                <h5>{{title}}</h5>
+                <div>
+                    <p>This is a modal window. You can do the following things with it:</p>
+                    <ul>
+                        <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+                        <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+                        <li><strong>Close:</strong> click on the button below to close the modal.</li>
+                    </ul>
+                    <button class="md-close">Close me!</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="md-overlay"></div>
+
 {% endblock %}

@@ -11,18 +11,23 @@
         <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
 
-        <link href="/static/css/index.css" rel="stylesheet">
+        <link href="/static/css/index.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <link rel="stylesheet" href="static\css\component.css" />
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
+        <script src="\static\js\modernizr.custom.js"></script>
+
         <title>Spotify Collage</title>
+        <link rel="shortcut icon" type="image/png" href="\static\images\spotify-32.png"/>
 
     </head>
 
     <body style="background-color: #191414">
-
+        {% block toolbar %}
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #191414">
             <a class="navbar-brand" href="/"><img src="static\images\Spotify_Logo.png" width="200px" height="80px"></a>
             <div class="collapse navbar-collapse" id="navbar">
@@ -37,7 +42,7 @@
                 <a class="btn-link" href="/current_user"><button style="float: inline-end;" class="nav-btn">My Profile</button></a>
                 <a class="btn-link" href="/sign_out"><button style="float: right" class="nav-btn">Sign Out</button></a>
         </nav>
-
+        {% endblock %}
         {% if get_flashed_messages() %}
             <header>
                 <div class="alert alert-primary border text-center" role="alert">
@@ -49,6 +54,7 @@
         <main class="container p-5">
             <p style="color:white"></p>
             {% block main %}{% endblock %}
+            
         </main>
 
         <footer class="small text-center text-muted">
@@ -56,6 +62,19 @@
             <br>
             Created for nwHacks 2022. 
         </footer>
+        <div class="md-overlay"></div>
+       <!-- classie.js by @desandro: https://github.com/desandro/classie -->
+		<script src="static\js\classie.js"></script>
+		<script src="static\js\modalEffects.js"></script>
+
+		<!-- for the blur effect -->
+		<!-- by @derSchepp https://github.com/Schepp/CSS-Filters-Polyfill -->
+		<script>
+			// this is important for IEs
+			var polyfilter_scriptpath = '/js/';
+		</script>
+		<script src="static\js\cssParser.js"></script>
+		<script src="static\js\css-filters-polyfill.js"></script>
 
     </body>
 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="/static/css/index.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <link rel="stylesheet" href="static\css\component.css" />
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+        <script src="\static\js\modernizr.custom.js"></script>
+
+        <title>Spotify Collage</title>
+        <link rel="shortcut icon" type="image/png" href="\static\images\spotify-32.png"/>
+
+    </head>
+
+    <body style="background-color: #191414">
+        {% block toolbar %}
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #191414">
+            <a class="navbar-brand" href="/"><img src="static\images\Spotify_Logo.png" width="200px" height="80px"></a>
+            <div class="collapse navbar-collapse" id="navbar">
+                <a class="btn-link" href="/"><button class="nav-btn">Home</button></a>
+                <a class="btn-link" href="/your_saved_songs"><button class="nav-btn">Liked Songs</button></a>
+                <a class="btn-link" href="/currently_playing"><button class="nav-btn">Currently Playing</button></a>
+                <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist Top Tracks</button></a>
+                <a class="btn-link" href="/genre_rec"><button class="nav-btn">Recommendations</button></a>
+                <a class="btn-link" href="/trending"><button class="nav-btn">Trending</button></a>
+                <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
+            </div>
+                <a class="btn-link" href="/current_user"><button style="float: inline-end;" class="nav-btn">My Profile</button></a>
+                <a class="btn-link" href="/sign_out"><button style="float: right" class="nav-btn">Sign Out</button></a>
+        </nav>
+        {% endblock %}
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary border text-center" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+
+        <main class="container p-5">
+            <p style="color:white"></p>
+
+    <h1 style="text-transform: uppercase; color: #1DB954">Your Liked Songs</h1>
+    
+    {% for pics,links in saved_pics|zip(saved_links) %}
+        <img class="album-cover md-trigger" data-modal="modal-8" src="{{pics}}" width="100" height="100">
+        <div class="md-modal md-effect-8" id="modal-8">
+            <div class="md-content">
+                <h3>Modal Dialog</h3>
+                <div>
+                    <p>This is a modal window. You can do the following things with it:</p>
+                    <ul>
+                        <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+                        <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+                        <li><strong>Close:</strong> click on the button below to close the modal.</li>
+                    </ul>
+                    <button class="md-close">Close me!</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
+        
+
+        <footer class="small text-center text-muted">
+            Data provided for free by Spotify.
+            <br>
+            Created for nwHacks 2022. 
+        </footer>
+        <div class="md-overlay"></div>
+        </main>
+       <!-- classie.js by @desandro: https://github.com/desandro/classie -->
+		<script src="static\js\classie.js"></script>
+		<script src="static\js\modalEffects.js"></script>
+
+		<!-- for the blur effect -->
+		<!-- by @derSchepp https://github.com/Schepp/CSS-Filters-Polyfill -->
+		<script>
+			// this is important for IEs
+			var polyfilter_scriptpath = '/js/';
+		</script>
+		<script src="static\js\cssParser.js"></script>
+		<script src="static\js\css-filters-polyfill.js"></script>
+
+    </body>
+
+</html>

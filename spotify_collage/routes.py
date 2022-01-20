@@ -21,7 +21,9 @@ def index():
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read',
                                                 cache_handler=cache_handler, 
-                                                show_dialog=True)
+                                                show_dialog=True, client_id='',
+                                                client_secret='',
+                                                redirect_uri='')
 
     if request.args.get("code"):
         auth_manager.get_access_token(request.args.get("code"))
@@ -53,7 +55,9 @@ def playlists():
         return redirect('/')
 
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return spotify.current_user_saved_tracks()
+    trending_id = "37i9dQZEVXbMDoHDwVN2tF"
+    results = spotify.playlist_items(trending_id)
+    return render_template('test.html')
 
 
 @app.route('/currently_playing')
@@ -83,7 +87,10 @@ def current_user():
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     results = spotify.current_user()
-    user = CurrentUser(results['display_name'], results['images'][0]['url'], results['external_urls']['spotify'])
+    if len(results['images']) > 0:
+        user = CurrentUser(results['display_name'], results['images'][0]['url'], results['external_urls']['spotify'])
+    else:
+        user = CurrentUser(results['display_name'], "static\images\default_profile.png", results['external_urls']['spotify'])
     return render_template('current_user.html', username=user.username, image_url=user.user_image, spotify_link=user.redirect)
 
 
@@ -104,7 +111,7 @@ def top_artist_tracks():
             print('\n'+str(artist_name)+"'s artist ID is "+artist_id+'\n')
             results = spotify.artist_top_tracks(artist_id)
             
-            for item in results['tracks'][:16]:
+            for item in results['tracks']:
                 top_tracks.append(item['name'])
                 images.append(item['album']['images'][0]['url'])
         
@@ -145,6 +152,7 @@ def trending_tracks():
     trending_tracks = []
     trending_artists = []
     trending_images = []
+    trending_links = []
     
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
@@ -157,7 +165,8 @@ def trending_tracks():
         trending_tracks.append(track['track']['name'])
         trending_artists.append(track['track']['album']['artists'][0]['name'])
         trending_images.append(track['track']['album']['images'][0]['url'])
-    return render_template('trending.html', top_tracks=trending_tracks, top_artists=trending_artists, images=trending_images)
+        trending_links.append(track['track']['external_urls']['spotify'])
+    return render_template('trending.html', top_tracks=trending_tracks, top_artists=trending_artists, images=trending_images, links=trending_links)
 
 
 @app.route('/about')
