@@ -31,6 +31,7 @@
     </div>
 </div>
 
+{% if show_button %}
 <div class="content-section" style="display: inline-block;">
     <h1 style="text-transform: uppercase; color: #1DB954; font-family: 'Gotham Bold'; font-size:30px;">Currently Playing</h1>
     <h4>{{ title }}</h4>
@@ -43,12 +44,9 @@
         <h6>{{ album }}</h6>
         </p>
     </div>
-    {% if show_button %}
-    {% else %}
-        <h3 class="text-white" style="font-size: medium; margin: 200px;">No Song Currently Playing</h3>
-    {% endif %}
 </div>
 
+{% endif %}
 
 
 {% endblock %}
