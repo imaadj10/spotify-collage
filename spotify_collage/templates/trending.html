@@ -5,12 +5,11 @@
     <a class="navbar-brand" href="/"><img src="static\images\Spotify_Logo.png" width="200px" height="80px"></a>
     <div class="collapse navbar-collapse" id="navbar">
         <a class="btn-link" href="/"><button class="nav-btn">Home</button></a>
-        <a class="btn-link" href="/your_saved_songs"><button class="nav-btn">Liked Songs</button></a>
-        <a class="btn-link" href="/currently_playing"><button class="nav-btn">Currently Playing</button></a>
-        <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist Top Tracks</button></a>
-        <a class="btn-link" href="/genre_rec"><button class="nav-btn">Recommendations</button></a>
-        <a class="btn-link" href="/trending"><button class="active-btn">Trending</button></a>
-        <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
+      <a class="btn-link" href="/your_saved_songs"><button class="nav-btn">Liked Songs</button></a>
+      <a class="btn-link" href="/trending"><button class="active-btn">Trending</button></a>
+      <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist's Top 10</button></a>
+      <a class="btn-link" href="/genre_rec"><button class="nav-btn">Genres</button></a>
+      <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
     </div>
         <a class="btn-link" href="/current_user"><button style="float: inline-end;" class="nav-btn">My Profile</button></a>
         <a class="btn-link" href="/sign_out"><button style="float: right" class="nav-btn">Sign Out</button></a>
@@ -18,22 +17,23 @@
 {% endblock %}
 
 {% block main %}
-<div class="text-white">
-    <h1 style="text-transform: uppercase; color: #1DB954">Top 50 Global</h1>
+    <h1 style="text-transform: uppercase; color: #1DB954; font-family: 'Gotham Bold';">Top 50 Global</h1>
     
-    <!-- {% for track, artist in top_tracks|zip(top_artists) %}
-        
-            <td>{{loop.index}}. {{track}} - {{artist}}</td>
-</br>
-        
-    {% endfor %} -->
-
-   
-    
-    {% for image,link in images|zip(links) %}
-    <a href="{{ link }}" target="_blank">
-        <img class="album-cover" src="{{ image }}" width="100" height="100"/>
-    </a>
+    {% for image,link,track,artist,album in images|zip(links, top_tracks, top_artists, top_albums) %}
+        <img class="album-cover md-trigger" data-modal="modal-top-{{loop.index}}" src="{{ image }}" width="100" height="100"/>
+        <div class="md-modal md-effect-8" id="modal-top-{{loop.index}}">
+            <div class="md-content">
+                <h4>{{track}}</h4>
+                <img style="box-shadow: 0 0 5px #191414;" width="200" height="200" src="{{image}}"/>
+                <h5>by {{artist}}</h5>
+                <h6>{{album}}</h6>
+                <div>
+                    <a href="{{link}}" target="_blank"><button class="md-close btn"><img src="static\images\spotify-32.png"/> Play on Spotify</button></a>
+                </div>
+            </div>
+        </div>
     {% endfor %}
+
+    <div class="md-overlay"></div>
 
 {% endblock %}

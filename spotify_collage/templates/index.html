@@ -6,10 +6,9 @@
     <div class="collapse navbar-collapse" id="navbar">
         <a class="btn-link" href="/"><button class="active-btn">Home</button></a>
         <a class="btn-link" href="/your_saved_songs"><button class="nav-btn">Liked Songs</button></a>
-        <a class="btn-link" href="/currently_playing"><button class="nav-btn">Currently Playing</button></a>
-        <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist Top Tracks</button></a>
-        <a class="btn-link" href="/genre_rec"><button class="nav-btn">Recommendations</button></a>
         <a class="btn-link" href="/trending"><button class="nav-btn">Trending</button></a>
+        <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist's Top 10</button></a>
+        <a class="btn-link" href="/genre_rec"><button class="nav-btn">Genres</button></a>
         <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
     </div>
         <a class="btn-link" href="/current_user"><button style="float: inline-end;" class="nav-btn">My Profile</button></a>
@@ -22,9 +21,9 @@
 {% endblock %} 
 
 {% block main %} 
-<div class="homepage">
-    
+<div class="fade">
+    <div style="color: #1DB954; font-size: 100px;">Welcome to</div>
+    <div style="color: white; font-size: 90px;"><span style="font-family: Gotham Bold;">Spotify</span>Collage</div>
+    <div class="username-home">{{name}}!</div>
 </div>
-
-
 {% endblock %}

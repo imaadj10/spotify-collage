@@ -4,13 +4,12 @@
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #191414">
     <a class="navbar-brand" href="/"><img src="static\images\Spotify_Logo.png" width="200px" height="80px"></a>
     <div class="collapse navbar-collapse" id="navbar">
-        <a class="btn-link" href="/"><button class="nav-btn">Home</button></a>
-        <a class="btn-link" href="/your_saved_songs"><button class="nav-btn">Liked Songs</button></a>
-        <a class="btn-link" href="/currently_playing"><button class="nav-btn">Currently Playing</button></a>
-        <a class="btn-link" href="/artist_top_tracks"><button class="active-btn">Artist Top Tracks</button></a>
-        <a class="btn-link" href="/genre_rec"><button class="nav-btn">Recommendations</button></a>
-        <a class="btn-link" href="/trending"><button class="nav-btn">Trending</button></a>
-        <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
+      <a class="btn-link" href="/"><button class="nav-btn">Home</button></a>
+      <a class="btn-link" href="/your_saved_songs"><button class="nav-btn">Liked Songs</button></a>
+      <a class="btn-link" href="/trending"><button class="nav-btn">Trending</button></a>
+      <a class="btn-link" href="/artist_top_tracks"><button class="active-btn">Artist's Top 10</button></a>
+      <a class="btn-link" href="/genre_rec"><button class="nav-btn">Genres</button></a>
+      <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
     </div>
         <a class="btn-link" href="/current_user"><button style="float: inline-end;" class="nav-btn">My Profile</button></a>
         <a class="btn-link" href="/sign_out"><button style="float: right" class="nav-btn">Sign Out</button></a>
@@ -29,7 +28,7 @@
 <div id="cover">
     <form class="search-form" method="post" action="#">
       <div class="tb">
-        <div class="td"><input spellcheck="false" autocomplete="off" autofocus name="artist_rec" class="search-bar" type="text" placeholder="Search" required></div>
+        <div class="td"><input spellcheck="false" autocomplete="off" autofocus name="artist_rec" class="search-bar" type="text" placeholder="Search your favorite artists" required></div>
         <div class="td" id="s-cover">
           <button class="search-button" type="submit">
             <div id="s-circle"></div>

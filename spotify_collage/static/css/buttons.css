@@ -1,0 +1,79 @@
+.genre-btn.row-1 {
+    background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+}
+
+.genre-btn.row-1:hover {
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+}
+
+.genre-btn.row-2 {
+    background-image: linear-gradient(to right, #f5ce62, #e43603, #fa7199, #e85a19);
+}
+
+.genre-btn.row-2:hover {
+    box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
+}
+
+.genre-btn.row-3 {
+    background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+}
+
+.genre-btn.row-3:hover {
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+}
+
+.genre-btn.row-4 {
+    background-image: linear-gradient(to right, #fc6076, #ff9a44, #ef9d43, #e75516);
+}
+
+.genre-btn.row-4:hover {
+    box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
+}
+
+.genre-btn.row-5 {
+    background-image: linear-gradient(to right, #0ba360, #3cba92, #30dd8a, #2bb673);
+}
+
+.genre-btn.row-5:hover {
+    box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+}
+
+.genre-btn.row-6 {
+    background-image: linear-gradient(to right, #009245, #FCEE21, #00A8C5, #D9E021);
+}
+
+.genre-btn.row-6:hover {
+    box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
+}
+
+.genre-btn.row-7 {
+    background-image: linear-gradient(to right, #6253e1, #852D91, #A3A1FF, #F24645);
+}
+
+.genre-btn.row-7:hover {
+    box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
+}
+
+.genre-btn.row-8 {
+    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+}
+
+.genre-btn.row-8:hover {
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+.genre-btn.row-9 {
+    background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a , #FBB03B);
+}
+
+.genre-btn.row-9:hover {
+    box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+}
+
+.genre-btn.row-10 {
+    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+}
+
+.genre-btn.row-10:hover {
+    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}

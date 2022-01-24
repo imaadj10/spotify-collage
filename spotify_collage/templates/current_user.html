@@ -6,10 +6,9 @@
     <div class="collapse navbar-collapse" id="navbar">
         <a class="btn-link" href="/"><button class="nav-btn">Home</button></a>
         <a class="btn-link" href="/your_saved_songs"><button class="nav-btn">Liked Songs</button></a>
-        <a class="btn-link" href="/currently_playing"><button class="nav-btn">Currently Playing</button></a>
-        <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist Top Tracks</button></a>
-        <a class="btn-link" href="/genre_rec"><button class="nav-btn">Recommendations</button></a>
         <a class="btn-link" href="/trending"><button class="nav-btn">Trending</button></a>
+        <a class="btn-link" href="/artist_top_tracks"><button class="nav-btn">Artist's Top 10</button></a>
+        <a class="btn-link" href="/genre_rec"><button class="nav-btn">Genres</button></a>
         <a class="btn-link" href="/about"><button class="nav-btn">About</button></a>
     </div>
         <a class="btn-link" href="/current_user"><button style="float: inline-end;" class="active-btn">My Profile</button></a>
@@ -19,18 +18,37 @@
 
 {% block main %}
 
-<div class="content-section">
+<div class="content-section" style="display: inline-block;">
+    <h1 style="text-transform: uppercase; color: #1DB954; font-family: 'Gotham Bold';">My Profile</h1>
     <div class="media">
     <img class="rounded-circle account-img mx-auto" style="width: 200px; height: 200px;" src="{{ image_url }}"/>
     </div>
     <div class="media-body">
         <p>
         <h2 class="account-heading text-white">{{ username }}</h2>
-        <a href="{{ spotify_link }}" target="_blank">
-            <button type="button" class="btn btn-lg">Open in <img src="static\images\spotify-32.png"/></button>
-        </a>
         </p>
+        <a href="{{ spotify_link }}" target="_blank"><button type="button" class="btn btn-lg"><img src="static\images\spotify-32.png"/> Open with Spotify</button></a>
     </div>
 </div>
+
+<div class="content-section" style="display: inline-block;">
+    <h1 style="text-transform: uppercase; color: #1DB954; font-family: 'Gotham Bold'; font-size:30px;">Currently Playing</h1>
+    <h4>{{ title }}</h4>
+    <div class="media">
+        <img style="max-width: 30%" class="mx-auto" src="{{ image }}"/>
+    </div>
+    <div class="media-body text-white">
+        <p>
+        <h5>{{ artist }}</h5>
+        <h6>{{ album }}</h6>
+        </p>
+    </div>
+    {% if show_button %}
+    {% else %}
+        <h3 class="text-white" style="font-size: medium; margin: 200px;">No Song Currently Playing</h3>
+    {% endif %}
+</div>
+
+
 
 {% endblock %}
